@@ -21,14 +21,17 @@ function submitItem() {
 }
 
 function delLast() {
-  cart.pop();
-  console.log(cart);
-  displayItem();
+var confirmation = confirm('Are you sure?')
+    if(confirmation){
+        cart.pop();
+        console.log(cart);
+        displayItem();
+    }
 }
 
 function delAll() {
   var confirmation = confirm(
-    "Are you sure you want to delete. This action is irreversible"
+    "Are you sure you want to delete? This action is irreversible!"
   );
   console.log(confirmation);
   if (confirmation === true) {
