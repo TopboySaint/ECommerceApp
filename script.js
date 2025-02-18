@@ -6,8 +6,9 @@ if (cart.length == 0) {
                 <p class="alert alert-danger text-center p-2">No items added yet</p>
             `;
 }
+
 function submitItem() {
-  if (items.value === "") {
+  if (items.value.trim() === "") {
     errorMsg.style.display = "block";
   } else {
     bigDiv.style.display = "none";
@@ -33,7 +34,6 @@ function delAll() {
   var confirmation = confirm(
     "Are you sure you want to delete? This action is irreversible!"
   );
-  console.log(confirmation);
   if (confirmation === true) {
     cart.splice(0, cart.length);
     displayItem();
@@ -42,27 +42,35 @@ function delAll() {
 
 function delAny() {
   var start = Number(prompt("Which number are you deleting?"));
-  // console.log(start);
   cart.splice(start - 1, 1);
   displayItem();
 }
 
+function delFirst() {
+  var confirmation = confirm("Are you sure?");
+  if(confirm){
+    cart.shift();
+    displayItem();
+  }
+}
+
 function addFirst() {
-  console.log(firstitem.value);
-  if (firstitem.value === "") {
+  var firstItem = document.getElementById("firstitem").value.trim();
+  var errorFirst = document.getElementById("errorFirst");
+
+  if (firstItem === "") {
     errorFirst.style.display = "block";
   } else {
     errorFirst.style.display = "none";
-    cart.unshift(firstitem.value);
+    cart.unshift(firstItem);
     console.log(cart);
-    document.getElementById("firstitem").value = "";
     displayItem();
   }
 }
 
 function edit() {
-  if (newIndex.value === "" && editedValue.value === "") {
-    alert("fill something jor");
+  if (newIndex.value.trim() === "" || editedValue.value.trim() === "") {
+    alert("fill in something jor");
   } else {
     if (Number(newIndex.value) > cart.length) {
       alert("Haba, fear God now");
@@ -78,14 +86,6 @@ function edit() {
 
 function displayItem() {
   show.innerHTML = "";
-  // for (var i = 0; i < cart.length; i++) {
-  //     // console.log(cart[i])
-  //     show.innerHTML += `
-  //                     <small>${i + 1}</small>
-  //                     <p>${cart[i]}</p>
-  //                 `
-  // }
-
   cart.map((goods, i) => {
     show.innerHTML += `
             <small>${i + 1}</small>
